@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Little Pearls - Dawn Integration Preview</title>
+    <style>
+        /* DAWN THEME BASE STRUCTURE + YOUR BEAUTIFUL DESIGN */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* YOUR EXACT COLOR SCHEME & TYPOGRAPHY */
+        :root {
+            --color-primary: #d4a574;
+            --color-background: #f8f6f3;
+            --color-light-bg: #fefefe;
+            --font-heading: Georgia, serif;
+            --font-body: 'Arial', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-heading);
+            background-color: var(--color-light-bg);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* TOP BAR - YOUR DESIGN */
+        .shopify-section-header-group {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .announcement-bar {
+            background-color: var(--color-background);
+            padding: 8px 0;
+            font-size: 11px;
+            text-align: center;
+            color: #666;
+        }
+
+        .announcement-bar__content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-links a {
+            color: #999;
+            text-decoration: none;
+            font-size: 16px;
+            width: 28px;
+            height: 28px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: white;
+            color: var(--color-primary);
+            transform: translateY(-1px);
+        }
+
+        .announcement-bar__info {
+            display: flex;
+            gap: 20px;
+            font-size: 11px;
+            color: #777;
+        }
+
+        /* DAWN HEADER STRUCTURE + YOUR STYLING */
+        .header {
+            background-color: var(--color-light-bg);
+            border-bottom: 1px solid #f0f0f0;
+            padding: 0;
+        }
+
+        .header__wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        /* DAWN SEARCH + YOUR STYLING */
+        .predictive-search {
+            display: flex;
+            align-items: center;
+            background: #f9f9f9;
+            border-radius: 30px;
+            padding: 10px 20px;
+            border: 1px solid #eee;
+            width: 280px;
+            transition: all 0.3s ease;
+        }
+
+        .predictive-search:focus-within {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+        }
+
+        .predictive-search__input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 2px 10px;
+            font-size: 13px;
+            background: transparent;
+            color: #333;
+        }
+
+        .predictive-search__input::placeholder {
+            color: #999;
+        }
+
+        .search__button {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        /* YOUR LOGO POSITIONING */
+        .header__heading {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .header__heading-logo {
+            width: 120px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        /* DAWN CART + YOUR STYLING */
+        .header__icons {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .header__icon {
+            text-decoration: none;
+            color: #555;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .header__icon:hover {
+            color: var(--color-primary);
+        }
+
+        .cart-count-bubble {
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 11px;
+            margin-left: 5px;
+        }
+
+        /* DAWN NAVIGATION + YOUR STYLING */
+        .header__inline-menu {
+            background-color: var(--color-light-bg);
+            padding: 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .list-menu {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 45px;
+            padding: 15px 20px;
+            list-style: none;
+        }
+
+        .list-menu__item {
+            position: relative;
+        }
+
+        .list-menu__item .link {
+            text-decoration: none;
+            color: #555;
+            font-size: 12px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 0;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .list-menu__item .link:hover {
+            color: var(--color-primary);
+        }
+
+        .list-menu__item .link:after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+
+        .list-menu__item .link:hover:after {
+            width: 100%;
+        }
+
+        /* DAWN HERO SECTION + YOUR CONTENT */
+        .shopify-section-image-banner {
+            background: linear-gradient(135deg, var(--color-background) 0%, var(--color-light-bg) 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .banner__content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .banner__heading {
+            font-size: 42px;
+            color: #444;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: -1px;
+            font-family: var(--font-heading);
+        }
+
+        .banner__text {
+            font-size: 18px;
+            color: #777;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .banner__buttons .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: var(--color-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .banner__buttons .btn:hover {
+            background: #c19660;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 165, 116, 0.3);
+        }
+
+        /* DAWN MAIN CONTENT + YOUR LAYOUT */
+        .main-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-heading {
+            text-align: center;
+            font-size: 36px;
+            color: #444;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            font-family: var(--font-heading);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 16px;
+            color: #777;
+            margin-bottom: 60px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* DAWN COLLECTION GRID + YOUR DESIGN */
+        .collection-list-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 100px;
+        }
+
+        .collection-card-wrapper {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .collection-card-wrapper:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .collection-card__image {
+            height: 280px;
+            background: var(--color-background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #999;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .collection-card__image.new-arrivals {
+            background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+            color: #5a8a5a;
+        }
+
+        .collection-card__image.bestsellers {
+            background: linear-gradient(135deg, #fff5e6, #ffefd6);
+            color: var(--color-primary);
+        }
+
+        .collection-card__image.seasonal {
+            background: linear-gradient(135deg, #e6f3ff, #f0f8ff);
+            color: #5a8ad4;
+        }
+
+        .collection-card__image.gifts {
+            background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+            color: #d45a8a;
+        }
+
+        .collection-card__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .collection-card-wrapper:hover .collection-card__overlay {
+            opacity: 1;
+        }
+
+        .collection-card__info {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .collection-card__heading {
+            font-size: 22px;
+            color: #444;
+            margin-bottom: 10px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            font-family: var(--font-heading);
+        }
+
+        .collection-card__description {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .collection-card__link {
+            display: inline-block;
+            padding: 10px 25px;
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .collection-card__link:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        /* YOUR STORY SECTION */
+        .shopify-section-rich-text {
+            background: var(--color-background);
+            padding: 80px 20px;
+            margin: 80px 0;
+        }
+
+        .rich-text__wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .rich-text__heading {
+            font-size: 32px;
+            color: #444;
+            margin-bottom: 30px;
+            font-weight: 300;
+            font-family: var(--font-heading);
+        }
+
+        .rich-text__text {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .rich-text__text em {
+            font-style: italic;
+            color: var(--color-primary);
+            font-weight: 500;
+        }
+
+        /* DAWN MOBILE RESPONSIVE + YOUR STYLING */
+        @media (max-width: 768px) {
+            .predictive-search {
+                display: none;
+            }
+
+            .header__icons {
+                display: none;
+            }
+
+            .list-menu {
+                display: none;
+            }
+
+            .header__wrapper {
+                justify-content: center;
+                padding: 15px 20px;
+            }
+
+            .header__heading {
+                position: static;
+                transform: none;
+            }
+
+            .header__heading-logo {
+                width: 100px;
+                height: 65px;
+            }
+
+            .announcement-bar__content {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .announcement-bar__info {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .shopify-section-image-banner {
+                padding: 60px 20px;
+            }
+
+            .banner__heading {
+                font-size: 32px;
+            }
+
+            .banner__text {
+                font-size: 16px;
+            }
+
+            .main-page {
+                padding: 60px 20px;
+            }
+
+            .section-heading {
+                font-size: 28px;
+            }
+
+            .collection-list-wrapper {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .shopify-section-rich-text {
+                padding: 60px 20px;
+                margin: 60px 0;
+            }
+
+            .rich-text__heading {
+                font-size: 26px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header__wrapper {
+                padding: 12px 15px;
+            }
+
+            .header__heading-logo {
+                width: 85px;
+                height: 55px;
+            }
+
+            .shopify-section-image-banner {
+                padding: 50px 15px;
+            }
+
+            .banner__heading {
+                font-size: 28px;
+            }
+
+            .main-page {
+                padding: 50px 15px;
+            }
+
+            .shopify-section-rich-text {
+                padding: 50px 15px;
+            }
+        }
+
+        /* DAWN ANIMATIONS + YOUR TOUCH */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .collection-card-wrapper {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .collection-card-wrapper:nth-child(1) { animation-delay: 0.1s; }
+        .collection-card-wrapper:nth-child(2) { animation-delay: 0.2s; }
+        .collection-card-wrapper:nth-child(3) { animation-delay: 0.3s; }
+        .collection-card-wrapper:nth-child(4) { animation-delay: 0.4s; }
+
+        /* DAWN CART DRAWER + YOUR STYLING */
+        .cart-notification {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: right 0.3s ease;
+        }
+
+        .cart-notification.animate {
+            right: 0;
+        }
+
+        /* YOUR CHAT WIDGET INTEGRATION */
+        .chat-widget {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 10000;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(212, 165, 116, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.05);
+            background: #c19660;
+            box-shadow: 0 6px 25px rgba(212, 165, 116, 0.4);
+        }
+
+        .chat-button svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- DAWN HEADER GROUP STRUCTURE -->
+    <div class="shopify-section-header-group">
+        
+        <!-- YOUR TOP BAR DESIGN -->
+        <div class="announcement-bar">
+            <div class="announcement-bar__content">
+                <div class="social-links">
+                    <a href="https://www.facebook.com/profile.php?id=100069123408889" target="_blank" title="Facebook">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/twolittlepearlsnz" target="_blank" title="Instagram">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.40z"/>
+                        </svg>
+                    </a>
+                    <a href="https://wa.me/64211111836" target="_blank" title="WhatsApp">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="announcement-bar__info">
+                    <span>✨ Free shipping on orders over $150 NZD</span>
+                    <span>📍 New Zealand owned & operated</span>
+                    <span>💝 Gift wrapping available</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAWN HEADER + YOUR STYLING -->
+        <header class="header">
+            <div class="header__wrapper">
+                
+                <!-- DAWN SEARCH -->
+                <div class="predictive-search">
+                    <button class="search__button" type="button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <input class="predictive-search__input" type="search" placeholder="Search for magical finds..." autocomplete="off">
+                </div>
+                
+                <!-- YOUR LOGO -->
+                <h1 class="header__heading">
+                    <img src="logo.png" alt="Two Little Pearls" class="header__heading-logo">
+                </h1>
+
+                <!-- DAWN CART ICONS -->
+                <div class="header__icons">
+                    <a href="/account" class="header__icon">My Account</a>
+                    <a href="/pages/wishlist" class="header__icon">Wishlist</a>
+                    <a href="/cart" class="header__icon">
+                        Cart 
+                        <span class="cart-count-bubble">0</span>
+                    </a>
+                </div>
+                
+            </div>
+        </header>
+
+        <!-- DAWN NAVIGATION + YOUR STYLING -->
+        <nav class="header__inline-menu">
+            <ul class="list-menu">
+                <li class="list-menu__item">
+                    <a href="/collections/new-arrivals" class="link">New Arrivals</a>
+                </li>
+                <li class="list-menu__item">
+                    <a href="/collections/bestsellers" class="link">Bestsellers</a>
+                </li>
+                <li class="list-menu__item">
+                    <a href="/collections/toys" class="link">Toys & Play</a>
+                </li>
+                <li class="list-menu__item">
+                    <a href="/collections/books" class="link">Books & Learning</a>
+                </li>
+                <li class="list-menu__item">
+                    <a href="/collections/baby" class="link">Baby Essentials</a>
+                </li>
+                <li class="list-menu__item">
+                    <a href="/collections/home-decor" class="link">Home & Decor</a>
+                </li>
+                <li class="list-menu__item">
+                    <a href="/collections/accessories" class="link">Accessories</a>
+                </li>
+                <li class="list-menu__item">
+                    <a href="/collections/seasonal" class="link">Seasonal</a>
+                </li>
+                <li class="list-menu__item">
+                    <a href="/collections/gifts" class="link">Gift Ideas</a>
+                </li>
+                <li class="list-menu__item">
+                    <a href="/collections/sale" class="link">Sale</a>
+                </li>
+            </ul>
+        </nav>
+        
+    </div>
+
+    <!-- DAWN HERO BANNER + YOUR CONTENT -->
+    <div class="shopify-section-image-banner">
+        <div class="banner__content">
+            <h2 class="banner__heading">Where childhood wonder begins</h2>
+            <p class="banner__text">Carefully curated treasures for the little ones in your life. From educational toys to beautiful decor, we make shopping for children easy and magical.</p>
+            <div class="banner__buttons">
+                <a href="#collections" class="btn">Discover Our Collections</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- DAWN MAIN CONTENT + YOUR COLLECTIONS -->
+    <main class="main-page" id="collections">
+        <h2 class="section-heading">Our Featured Collections</h2>
+        <p class="section-subtitle">Each collection is thoughtfully curated to spark imagination, encourage learning, and create beautiful memories.</p>
+        
+        <!-- DAWN COLLECTION LIST + YOUR DESIGN -->
+        <div class="collection-list-wrapper">
+            <div class="collection-card-wrapper">
+                <div class="collection-card__image new-arrivals">
+                    <div style="font-size: 64px;">✨</div>
+                    <div class="collection-card__overlay">
+                        <div style="color: white; font-size: 18px; font-weight: 500;">Explore Now</div>
+                    </div>
+                </div>
+                <div class="collection-card__info">
+                    <h3 class="collection-card__heading">Fresh Arrivals</h3>
+                    <p class="collection-card__description">Discover the latest additions to our magical collection. New treasures arrive weekly to delight and inspire.</p>
+                    <a href="/collections/new-arrivals" class="collection-card__link">Shop New Arrivals</a>
+                </div>
+            </div>
+
+            <div class="collection-card-wrapper">
+                <div class="collection-card__image bestsellers">
+                    <div style="font-size: 64px;">⭐</div>
+                    <div class="collection-card__overlay">
+                        <div style="color: white; font-size: 18px; font-weight: 500;">Explore Now</div>
+                    </div>
+                </div>
+                <div class="collection-card__info">
+                    <h3 class="collection-card__heading">Little Favourites</h3>
+                    <p class="collection-card__description">Our most loved pieces chosen by families across New Zealand. These treasures have captured hearts and sparked joy.</p>
+                    <a href="/collections/bestsellers" class="collection-card__link">Shop Bestsellers</a>
+                </div>
+            </div>
+
+            <div class="collection-card-wrapper">
+                <div class="collection-card__image seasonal">
+                    <div style="font-size: 64px;">❄️</div>
+                    <div class="collection-card__overlay">
+                        <div style="color: white; font-size: 18px; font-weight: 500;">Explore Now</div>
+                    </div>
+                </div>
+                <div class="collection-card__info">
+                    <h3 class="collection-card__heading">Winter Wonders</h3>
+                    <p class="collection-card__description">Cozy up with our winter collection. From warm accessories to indoor activities that make cold days magical.</p>
+                    <a href="/collections/winter" class="collection-card__link">Shop Winter</a>
+                </div>
+            </div>
+
+            <div class="collection-card-wrapper">
+                <div class="collection-card__image gifts">
+                    <div style="font-size: 64px;">🎁</div>
+                    <div class="collection-card__overlay">
+                        <div style="color: white; font-size: 18px; font-weight: 500;">Explore Now</div>
+                    </div>
+                </div>
+                <div class="collection-card__info">
+                    <h3 class="collection-card__heading">Perfect Gifts</h3>
+                    <p class="collection-card__description">Thoughtfully chosen gifts that create lasting memories. From birthdays to 'just because' moments.</p>
+                    <a href="/collections/gifts" class="collection-card__link">Shop Gifts</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- YOUR STORY SECTION -->
+    <div class="shopify-section-rich-text">
+        <div class="rich-text__wrapper">
+            <h2 class="rich-text__heading">Our Story</h2>
+            <p class="rich-text__text">At Two Little Pearls, we believe that childhood is a precious time filled with wonder, discovery, and joy. <em>We make shopping for the little ones in your life easy</em> by carefully curating a collection of toys, books, and treasures that inspire imagination and create beautiful memories.</p>
+            <p class="rich-text__text">Founded with love in New Zealand, we search the world for sustainable, well-made products that bring families together and support little ones' growth and development.</p>
+        </div>
+    </div>
+
+    <!-- YOUR CHAT WIDGET -->
+    <div class="chat-widget">
+        <button class="chat-button" onclick="openChat()">
+            <svg viewBox="0 0 24 24">
+                <path d="M20,2A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H6L2,22V4C2,2.89 2.9,2 4,2H20M4,4V18L6,16H20V4H4M6,7H18V9H6V7M6,11H15V13H6V11Z"/>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // DAWN + YOUR FUNCTIONALITY
+        function openChat() {
+            // Your chat functionality here
+            console.log('Opening chat widget...');
+        }
+
+        // DAWN CART FUNCTIONALITY
+        function updateCartCount() {
+            // Dawn's cart update logic
+            const cartBubble = document.querySelector('.cart-count-bubble');
+            // Update cart count
+        }
+
+        // YOUR SMOOTH SCROLLING
+        document.querySelector('.banner__buttons .btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('collections').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // DAWN PREDICTIVE SEARCH FUNCTIONALITY
+        const searchInput = document.querySelector('.predictive-search__input');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                // Dawn's predictive search logic would go here
+                console.log('Searching for:', this.value);
+            });
+        }
+    </script>
+</body>
+</html>
